@@ -767,9 +767,10 @@ body::after {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, 350px);
   gap: 40px;
   margin-top: 60px;
+  justify-content: center;
 }
 
 .project-card {
@@ -838,6 +839,8 @@ body::after {
   padding: 8px 16px;
   border: 1px solid var(--accent);
   border-radius: 6px;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .project-link:hover {
@@ -1000,5 +1003,111 @@ body::after {
 
   .social-links {
     justify-content: center;
+  }
+}
+/* ================================================= */
+/* === PERBAIKAN TOTAL TAMPILAN HP (RESPONSIVE) === */
+/* ================================================= */
+
+@media (max-width: 768px) {
+  /* --- 1. PERBAIKAN NAVBAR LAMBAT & BUGGY --- */
+  /* Kita matikan JS 'hide-on-scroll' di HP & buat permanen nempel. 
+    Ini solusi terbaik agar tidak lambat/patah-patah.
+  */
+  #navbar {
+    position: sticky !important; /* Paksa nempel di atas */
+    top: 0;
+    width: 100%;
+    transform: translateY(0) !important; /* Batalkan efek JS 'translateY' */
+    transition: none !important; /* Matikan animasi JS yang lambat */
+    background-color: var(--bg-1); /* Pastikan ada background */
+    z-index: 1000;
+  }
+
+  /* --- 2. PERBAIKAN 'GARIS TIGA' (HAMBURGER) HILANG --- */
+
+  /* SEMBUNYIKAN link menu versi desktop */
+  .nav-menu {
+    display: none !important;
+  }
+
+  /* SEMBUNYIKAN ikon sosial versi desktop di navbar */
+  .nav-social {
+    display: none !important;
+  }
+
+  /* TAMPILKAN tombol hamburger-nya */
+  .hamburger {
+    display: flex !important; /* Paksa tampilkan! */
+  }
+
+  /* Ini adalah menu DROPDOWN saat hamburger diklik */
+  .nav-menu.active {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Nempel pas di bawah navbar */
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--bg-1);
+    padding: 10px 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-menu.active li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu.active li a {
+    padding: 15px 0;
+    width: 100%;
+    display: block;
+  }
+
+  /* --- 3. PERBAIKAN TATA LETAK & TEKS TERPOTONG --- */
+
+  /* Paksa layout hero (teks & gambar) menumpuk ke bawah */
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text {
+    width: 100%;
+    align-items: center;
+  }
+
+  .hero-visual {
+    margin-top: 60px; /* Jarak antara teks dan foto */
+  }
+
+  /* Paksa teks "Problem Solv" agar bisa pindah baris */
+  h1.hero-title,
+  h1.hero-title span {
+    white-space: normal !important; /* Izinkan teks pindah baris */
+    word-break: break-word; /* Pecah kata jika perlu */
+  }
+
+  h1.hero-title {
+    font-size: 2.8rem; /* Kecilkan font judul di HP */
+    line-height: 1.2; /* Beri jarak antar baris */
+  }
+
+  /* Paksa layout 'About Me' menumpuk ke bawah */
+  .about-content {
+    flex-direction: column;
+  }
+
+  .about-visual {
+    margin-top: 40px;
+  }
+
+  /* --- 4. PERBAIKAN 'BEKAS' SAAT KLIK IKON --- */
+  a:focus,
+  button:focus {
+    outline: none !important; /* Hapus outline 'bekas' */
+    -webkit-tap-highlight-color: transparent; /* Hapus highlight biru/abu-abu saat di-tap */
   }
 }
